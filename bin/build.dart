@@ -6,10 +6,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dashboard_box/src/firebase_uploader.dart';
-import 'package:dashboard_box/src/utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:stack_trace/stack_trace.dart';
+
+import 'package:dashboard_box/src/utils.dart';
+import 'package:dashboard_box/src/firebase_uploader.dart';
 
 Future<Null> main(List<String> args) async {
   if (args.length != 1)

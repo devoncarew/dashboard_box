@@ -5,7 +5,7 @@
 This repository contains scripts for the job that generates data for the
 dashboard.
 
-To test this script locally:
+## To test this script locally
 
 - Get a Mac with a recent Mac OS X.
 - Clone this repository _exactly_ into `~/flutter_dashboard/dashboard_box`, so
@@ -39,3 +39,8 @@ Example:
   "FIREBASE_FLUTTER_DASHBOARD_TOKEN": "..."
 }
 ```
+
+## To re-build the web site
+
+Run `pub build`. The output will be placed in `build/web/`; this is the location
+that firebase deploys from.

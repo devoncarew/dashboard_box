@@ -19,7 +19,6 @@ void main() {
   firebase = new Firebase("https://purple-butterfly-3000.firebaseio.com/");
 
   firebase.onAuth().listen((context) {
-    // print('onAuth: $context');
     _listenForChartChanges();
   });
 
