@@ -1,5 +1,7 @@
 # Scripts for Flutter's performance lab and dashboard
 
+[![Build Status](https://travis-ci.org/flutter/dashboard_box.svg?branch=master)](https://travis-ci.org/flutter/dashboard_box)
+
 This repository contains scripts for the job that generates data for the
 dashboard.
 
@@ -21,10 +23,13 @@ On the actual build box `launchd` writes standard output in
 
 ## config.json
 
-The config file must be a JSON file under `dashboard_box` defining the following variables:
+The config file must be a JSON file under `dashboard_box` and define the
+following variables:
 
- * `ANDROID_DEVICE_ID` - the ID of the Android device used for performance testing
- * `FIREBASE_FLUTTER_DASHBOARD_TOKEN` - authentication token to Firebase used to upload metrics (not needed for local testing)
+ * `ANDROID_DEVICE_ID` - the ID of the Android device used for performance
+   testing
+ * `FIREBASE_FLUTTER_DASHBOARD_TOKEN` - authentication token to Firebase used to
+   upload metrics (not needed for local testing)
 
 Example:
 
