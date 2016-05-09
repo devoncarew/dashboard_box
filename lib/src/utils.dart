@@ -63,7 +63,7 @@ void section(String title) {
 
 Future<String> getDartVersion() async {
   // The Dart SDK return the version text to stderr.
-  ProcessResult result = Process.runSync('dart', ['--version']);
+  ProcessResult result = Process.runSync(dartBin, ['--version']);
   String version = result.stderr.trim();
   if (version.indexOf('(') != -1)
     version = version.substring(0, version.indexOf('(')).trim();
