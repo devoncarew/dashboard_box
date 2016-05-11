@@ -291,28 +291,34 @@ void checkNotNull(Object o1, [Object o2 = 1, Object o3 = 1, Object o4 = 1,
     throw 'o10 is null';
 }
 
-/// Add additional values to a JSON results file.
-num patchupResultFile(File jsonFile, {
-  DateTime timestamp,
+/// Add benchmark values to a JSON results file.
+///
+/// If the file contains information about how long the benchmark took to run
+/// (a `time` field), then return that info.
+num addBuildInfo(File jsonFile, {
   double expected,
   String sdk,
-  String commit
+  String commit,
+  DateTime timestamp
 }) {
   Map<String, dynamic> json;
+
   if (jsonFile.existsSync())
     json = JSON.decode(jsonFile.readAsStringSync());
   else
     json = <String, dynamic>{};
 
-  if (timestamp != null)
-    json['timestamp'] = timestamp.millisecondsSinceEpoch;
   if (expected != null)
     json['expected'] = expected;
   if (sdk != null)
     json['sdk'] = sdk;
   if (commit != null)
     json['commit'] = commit;
+  if (timestamp != null)
+    json['timestamp'] = timestamp.millisecondsSinceEpoch;
 
   jsonFile.writeAsStringSync(jsonEncode(json));
+
+  // Return the elapsed time of the benchmark (if any).
   return json['time'];
 }

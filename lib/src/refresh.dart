@@ -10,22 +10,22 @@ import 'package:path/path.dart' as path;
 import 'benchmarks.dart';
 import 'utils.dart';
 
-Future<Null> runRefreshTests() async {
-  String sdk = await getDartVersion();
-  String commit = await getFlutterRepoCommit();
-  DateTime time = await getFlutterRepoCommitTimestamp(commit);
-
-  Benchmark benchmark = new EditRefreshBenchmark(time, sdk, commit);
+Future<Null> runRefreshTests({
+  String sdk,
+  String commit,
+  DateTime timestamp
+}) async {
+  Benchmark benchmark = new EditRefreshBenchmark(sdk, commit, timestamp);
   section(benchmark.name);
   await runBenchmark(benchmark, iterations: 3);
 }
 
 class EditRefreshBenchmark extends Benchmark {
-  EditRefreshBenchmark(this.time, this.sdk, this.commit) : super('edit refresh');
+  EditRefreshBenchmark(this.sdk, this.commit, this.timestamp) : super('edit refresh');
 
-  final DateTime time;
   final String sdk;
   final String commit;
+  final DateTime timestamp;
 
   Directory get megaDir => dir(path.join(config.flutterDirectory.path, 'dev/benchmarks/mega_gallery'));
   File get benchmarkFile => file(path.join(megaDir.path, 'refresh_benchmark.json'));
@@ -44,7 +44,7 @@ class EditRefreshBenchmark extends Benchmark {
     });
     if (exitCode != 0)
       return new Future.error(exitCode);
-    return patchupResultFile(benchmarkFile, timestamp: time, expected: 10.0, sdk: sdk, commit: commit);
+    return addBuildInfo(benchmarkFile, timestamp: timestamp, expected: 10.0, sdk: sdk, commit: commit);
   }
 
   @override
