@@ -12,6 +12,7 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:dashboard_box/src/analysis.dart';
 import 'package:dashboard_box/src/buildbot.dart';
 import 'package:dashboard_box/src/firebase.dart';
+import 'package:dashboard_box/src/refresh.dart';
 import 'package:dashboard_box/src/utils.dart';
 
 Future<Null> main(List<String> args) async {
@@ -51,6 +52,7 @@ Future<Null> build() async {
   await runPerfTests();
   await runStartupTests();
   await runAnalyzerTests();
+  await runRefreshTests();
   Map<String, dynamic> buildInfo = await generateBuildInfo(revision);
   await uploadDataToFirebase();
 

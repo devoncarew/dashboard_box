@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
@@ -40,7 +39,7 @@ class FlutterAnalyzeBenchmark extends Benchmark {
     await inDirectory(config.flutterDirectory, () async {
       await flutter('analyze', options: ['--flutter-repo', '--benchmark']);
     });
-    return _patchupResult(benchmarkFile, time, expected: 25.0, sdk: sdk, commit: commit);
+    return patchupResultFile(benchmarkFile, timestamp: time, expected: 25.0, sdk: sdk, commit: commit);
   }
 
   @override
@@ -71,34 +70,11 @@ class FlutterAnalyzeAppBenchmark extends Benchmark {
     await inDirectory(megaDir, () async {
       await flutter('analyze', options: ['--watch', '--benchmark']);
     });
-    return _patchupResult(benchmarkFile, time, expected: 10.0, sdk: sdk, commit: commit);
+    return patchupResultFile(benchmarkFile, timestamp: time, expected: 10.0, sdk: sdk, commit: commit);
   }
 
   @override
   void markLastRunWasBest(num result, List<num> allRuns) {
     copy(benchmarkFile, config.dataDirectory, name: 'analyzer_server__analysis_time.json');
   }
-}
-
-num _patchupResult(File jsonFile, DateTime time, {
-  double expected,
-  String sdk,
-  String commit
-}) {
-  Map<String, dynamic> json;
-  if (jsonFile.existsSync())
-    json = JSON.decode(jsonFile.readAsStringSync());
-  else
-    json = <String, dynamic>{};
-
-  json['timestamp'] = time.millisecondsSinceEpoch;
-  if (expected != null)
-    json['expected'] = expected;
-  if (sdk != null)
-    json['sdk'] = sdk;
-  if (commit != null)
-    json['commit'] = commit;
-  jsonFile.writeAsStringSync(jsonEncode(json));
-
-  return json['time'];
 }

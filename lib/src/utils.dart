@@ -289,5 +289,30 @@ void checkNotNull(Object o1, [Object o2 = 1, Object o3 = 1, Object o4 = 1,
 
   if (o10 == null)
     throw 'o10 is null';
+}
 
+/// Add additional values to a JSON results file.
+num patchupResultFile(File jsonFile, {
+  DateTime timestamp,
+  double expected,
+  String sdk,
+  String commit
+}) {
+  Map<String, dynamic> json;
+  if (jsonFile.existsSync())
+    json = JSON.decode(jsonFile.readAsStringSync());
+  else
+    json = <String, dynamic>{};
+
+  if (timestamp != null)
+    json['timestamp'] = timestamp.millisecondsSinceEpoch;
+  if (expected != null)
+    json['expected'] = expected;
+  if (sdk != null)
+    json['sdk'] = sdk;
+  if (commit != null)
+    json['commit'] = commit;
+
+  jsonFile.writeAsStringSync(jsonEncode(json));
+  return json['time'];
 }

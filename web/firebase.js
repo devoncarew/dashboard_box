@@ -89,6 +89,18 @@
       document.querySelector('#container').appendChild(clone);
     },
 
+    '__refresh_time': function(measurementType, measurementName, data) {
+      var clone = _cloneTemplate(measurementType);
+      if (clone == null) return;
+      var title = _getTitleForTemplate(measurementType, measurementName);
+      var targetPercent = Math.round((data.expected / data.time) * 100);
+
+      clone.querySelector('.metric-number').textContent = data.time;
+      clone.querySelector('.metric-name').textContent = title;
+      clone.querySelector('.metric-target').textContent = data.expected;
+      document.querySelector('#container').appendChild(clone);
+    },
+
     '__start_up': function(measurementType, measurementName, data) {
       var clone = _cloneTemplate(measurementType);
       if (clone == null) return;

@@ -13,6 +13,17 @@ import 'utils.dart';
 
 const firebaseBaseUrl = 'https://purple-butterfly-3000.firebaseio.com';
 
+// Future main(List<String> args) async {
+//   if (args.length != 2) {
+//     print('usage: fb_token json_upload_file');
+//     exit(1);
+//   }
+//
+//   config = new Config(Directory.current.parent.absolute.path);
+//   config.firebaseFlutterDashboardToken = args[0];
+//   return uploadToFirebase(new File(args[1]));
+// }
+
 Firebase _measurements() {
   var firebaseToken = config.firebaseFlutterDashboardToken;
   return new Firebase(Uri.parse("$firebaseBaseUrl/measurements"),
