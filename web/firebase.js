@@ -95,7 +95,7 @@
       var title = _getTitleForTemplate(measurementType, measurementName);
       var targetPercent = Math.round((data.expected / data.time) * 100);
 
-      clone.querySelector('.metric-number').textContent = data.time;
+      clone.querySelector('.metric-number').textContent = _comma(data.time.toString());
       clone.querySelector('.metric-name').textContent = title;
       clone.querySelector('.metric-target').textContent = data.expected;
       document.querySelector('#container').appendChild(clone);
@@ -106,10 +106,10 @@
       if (clone == null) return;
       var title = _getTitleForTemplate(measurementType, measurementName);
       clone.querySelector('.metric-name').textContent = title;
-      var timeToFirstFrame = _comma((data.timeToFirstFrameMicros/1000).toFixed(0));
+      var timeToFirstFrame = _comma((data.timeToFirstFrameMicros / 1000).toFixed(0));
       clone.querySelector('.metric-number').textContent = timeToFirstFrame;
-      clone.querySelector('.time-to-framework-init').textContent = _comma((data.timeToFrameworkInitMicros/1000).toFixed(0));
-      clone.querySelector('.time-after-init-to-first-frame').textContent = _comma((data.timeAfterFrameworkInitMicros/1000).toFixed(0));
+      clone.querySelector('.time-to-framework-init').textContent = _comma((data.timeToFrameworkInitMicros / 1000).toFixed(0));
+      clone.querySelector('.time-after-init-to-first-frame').textContent = _comma((data.timeAfterFrameworkInitMicros / 1000).toFixed(0));
 
       document.querySelector('#container').appendChild(clone);
     },
