@@ -26,7 +26,7 @@
       return response.json();
     }).then(function(data) {
       var isSuccessful = data['text'] && data['text'][1] === 'successful';
-      var elem = document.querySelector('#buildbot-' + builderName.toLowerCase() + '-status');
+      var elem = document.querySelector('#buildbot-' + builderName.toLowerCase().replace(' ', '-') + '-status');
       if (isSuccessful) {
         elem.classList.remove('buildbot-sad');
         elem.classList.add('buildbot-happy');
@@ -43,6 +43,8 @@
     setTimeout(getBuildStatus, 5*60*1000);
   }
 
-  getBuildStatus('Mac');
   getBuildStatus('Linux');
+  getBuildStatus('Linux Engine');
+  getBuildStatus('Mac');
+  getBuildStatus('Mac Engine');
 })();
