@@ -40,7 +40,7 @@
       console.error(err);
     });
 
-    setTimeout(getBuildStatus, 5*60*1000);
+    setTimeout(getBuildStatus, 5 * 60 * 1000);
   }
 
   getBuildStatus('Linux');
