@@ -189,9 +189,14 @@ void _updateRefreshChart([List data = const []]) {
   refreshChartArea.draw();
 }
 
-String _printDurationVal(num val) {
+String _printDurationValSeconds(num val) {
   if (val == null) return '';
   return val.toStringAsFixed(1) + 's';
+}
+
+String _printDurationValMillis(num val) {
+  if (val == null) return '';
+  return _comma(val.toInt().toString()) + 'ms';
 }
 
 Element _createTooltip(ChartColumnSpec spec, Measurement measurement, { String unitsLabel }) {
@@ -218,12 +223,12 @@ List _analysisColumnSpecs = [
   new ChartColumnSpec(
     label: 'flutter_repo',
     type: ChartColumnSpec.TYPE_NUMBER,
-    formatter: _printDurationVal
+    formatter: _printDurationValSeconds
   ),
   new ChartColumnSpec(
     label: 'mega_gallery',
     type: ChartColumnSpec.TYPE_NUMBER,
-    formatter: _printDurationVal
+    formatter: _printDurationValSeconds
   )
 ];
 
@@ -235,7 +240,7 @@ List _refreshColumnSpecs = [
   new ChartColumnSpec(
     label: 'Refresh',
     type: ChartColumnSpec.TYPE_NUMBER,
-    formatter: _printDurationVal
+    formatter: _printDurationValMillis
   )
 ];
 
@@ -262,4 +267,10 @@ DivElement div(String text, { String className }) {
   if (className != null)
     element.className = className;
   return element;
+}
+
+String _comma(String str) {
+  if (str.length > 3)
+    str = str.substring(0, str.length - 3) + ',' + str.substring(str.length - 3);
+  return str;
 }
