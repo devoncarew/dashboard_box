@@ -146,7 +146,7 @@ void _updateAnalysisChart([List data = const []]) {
       ChartColumnSpec spec = analysisChartArea.data.columns.elementAt(columnIndex);
       int time = row[0];
       Measurement measurement = (columnIndex == 1 ? repoMeasurements : galleryMeasurements)[time];
-      return _createTooltip(spec, measurement);
+      return _createTooltip(spec, measurement, unitsLabel: 's');
     }));
     analysisChartArea.addChartBehavior(new AxisLabelTooltip());
   }
@@ -181,7 +181,7 @@ void _updateRefreshChart([List data = const []]) {
       ChartColumnSpec spec = refreshChartArea.data.columns.elementAt(columnIndex);
       int time = row[0];
       Measurement measurement = refreshMeasurements[time];
-      return _createTooltip(spec, measurement);
+      return _createTooltip(spec, measurement, unitsLabel: 'ms');
     }));
     refreshChartArea.addChartBehavior(new AxisLabelTooltip());
   }
@@ -194,14 +194,14 @@ String _printDurationVal(num val) {
   return val.toStringAsFixed(1) + 's';
 }
 
-Element _createTooltip(ChartColumnSpec spec, Measurement measurement) {
+Element _createTooltip(ChartColumnSpec spec, Measurement measurement, { String unitsLabel }) {
   Element element = div('', className: 'hovercard-single');
 
   if (measurement == null) {
     element.text = 'No data';
   } else {
     element.children.add(div(spec.label, className: 'hovercard-title'));
-    element.children.add(div('time: ${measurement.time}s', className: 'hovercard-value'));
+    element.children.add(div('time: ${measurement.time}$unitsLabel', className: 'hovercard-value'));
     element.children.add(div('at: ${measurement.date}', className: 'hovercard-value'));
     if (measurement.commit != null)
       element.children.add(div('commit: ${measurement.commit.substring(0, 10)}', className: 'hovercard-value'));
