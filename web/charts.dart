@@ -82,16 +82,15 @@ void _updateChart() {
     ..addAll(repoMeasurements.keys)
     ..addAll(galleryMeasurements.keys)
   )..sort();
-
   List analysisData = times.map((int time) {
     return [time, repoMeasurements[time]?.time, galleryMeasurements[time]?.time];
   }).toList();
-
   _updateAnalysisChart(analysisData);
 
-  List refreshData = [];
-  for (int time in refreshMeasurements.keys.toList()..sort())
-    refreshData = [time, refreshMeasurements[time]];
+  times = refreshMeasurements.keys.toList()..sort();
+  List refreshData = times.map((int time) {
+    return [time, refreshMeasurements[time].time];
+  }).toList();
   _updateRefreshChart(refreshData);
 }
 
@@ -182,7 +181,7 @@ void _updateRefreshChart([List data = const []]) {
       ChartColumnSpec spec = refreshChartArea.data.columns.elementAt(columnIndex);
       int time = row[0];
       Measurement measurement = refreshMeasurements[time];
-      _createTooltip(spec, measurement);
+      return _createTooltip(spec, measurement);
     }));
     refreshChartArea.addChartBehavior(new AxisLabelTooltip());
   }
@@ -253,8 +252,8 @@ List _getPlaceholderDataRefresh() {
   DateTime now = new DateTime.now();
 
   return [
-    [now.subtract(new Duration(days: 30)).millisecondsSinceEpoch, 0.0],
-    [now.millisecondsSinceEpoch, 0.0],
+    [now.subtract(new Duration(days: 30)).millisecondsSinceEpoch, 0],
+    [now.millisecondsSinceEpoch, 0],
   ];
 }
 
