@@ -196,7 +196,7 @@ String _printDurationValSeconds(num val) {
 
 String _printDurationValMillis(num val) {
   if (val == null) return '';
-  return _comma(val.toInt().toString()) + 'ms';
+  return _formatWithThousandsSeparator(val.toInt()) + 'ms';
 }
 
 Element _createTooltip(ChartColumnSpec spec, Measurement measurement, { String unitsLabel }) {
@@ -269,7 +269,8 @@ DivElement div(String text, { String className }) {
   return element;
 }
 
-String _comma(String str) {
+String _formatWithThousandsSeparator(int value) {
+  String str = value.toString();
   if (str.length > 3)
     str = str.substring(0, str.length - 3) + ',' + str.substring(str.length - 3);
   return str;
