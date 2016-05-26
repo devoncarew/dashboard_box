@@ -108,7 +108,8 @@ Future<Null> runBenchmark(dynamic closure(), String name) async {
   try {
     await closure();
   } catch (error) {
-    print('benchmark $name failed: $error');
+    print('');
+    print('$name failed: $error');
   }
 }
 
