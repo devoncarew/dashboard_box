@@ -174,7 +174,7 @@ void _updateDartdocChart([List data]) {
   if (dartdocChartArea == null) {
     DivElement chartElement = document.querySelector('#documentation-chart');
     DivElement legendHost = chartElement.querySelector('.chart-legend-host');
-    ChartSeries series = new ChartSeries("Dartdoc Burndown", [1], new LineChartRenderer());
+    ChartSeries series = new ChartSeries('Dartdoc Burndown', [1], new LineChartRenderer());
 
     dartdocChartArea = new CartesianArea(
       chartElement.querySelector('.chart-host'),
