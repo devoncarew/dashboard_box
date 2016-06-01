@@ -32,3 +32,4 @@ SHA=$(git rev-parse HEAD)
 popd
 
 $GSUTIL cp /tmp/flutter.dashboard.output.txt gs://flutter-dashboard/$SHA/output.txt
+$GSUTIL -m acl ch -R -g 'google.com:R' gs://flutter-dashboard/$SHA
