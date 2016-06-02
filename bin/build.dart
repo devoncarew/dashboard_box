@@ -119,6 +119,9 @@ bool get shouldUploadData => Platform.environment['UPLOAD_DASHBOARD_DATA'] == 'y
 
 Future<Null> uploadDataToFirebase(BuildResult result) async {
   for (TaskResult taskResult in result.results) {
+    if (taskResult.data == null)
+      continue;
+
     Map<String, dynamic> data = new Map<String, dynamic>.from(taskResult.data.json);
 
     Map<String, dynamic> metadata = <String, dynamic>{
